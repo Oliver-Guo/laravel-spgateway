@@ -1,0 +1,33 @@
+{
+    "name": "oliverkuo/laravel-spgateway",
+    "description": "spgateway library for laravel",
+    "keywords": ["library", "spgateway"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [{
+        "name": "Oliverkuo",
+        "email": "energetic0702@gmail.com"
+    }],
+    "require": {
+        "php": ">=7",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Oliverkuo\\Spgateway\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Oliverkuo\\Spgateway\\SpgatewayServiceProvider"
+            ]
+        },
+        "aliases": {
+            "Spgateway": "Oliverkuo\\Spgateway\\Facades"
+        }
+    }
+}
