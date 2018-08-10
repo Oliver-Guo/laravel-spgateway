@@ -63,13 +63,6 @@ class Receipt
         foreach ($params['ItemCount'] as $k => $v) {
             if ($params['Category'] === 'B2B') {
                 $itemAmt[$k] = $params['ItemPrice'][$k] * $params['ItemCount'][$k];
-                /*
-            $itemAmt[$k] = $this->priceBeforeTax($params['ItemCount'][$k]
-             * $params['ItemPrice'][$k], $params['TaxRate']);
-
-            $itemAmt[$k] = $this->priceBeforeTax($params['ItemCount'][$k]
-             * $params['ItemPrice'][$k], $params['TaxRate']);
-             */
             } else {
                 $itemAmt[$k] = $params['ItemCount'][$k]
                      * $params['ItemPrice'][$k];

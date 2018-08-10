@@ -59,6 +59,12 @@ class MPG
                     . $validator['message']);
             }
 
+            $CustomerURL = false;
+
+            if (isset($params['VACC']) || isset($params['CVS']) || isset($params['BARCODE']) || isset($params['CVSCOM'])) {
+                $CustomerURL = true;
+            }
+
             $postData = [
                 'Amt'             => $amount,
                 'ItemDesc'        => $itemDesc,
@@ -72,11 +78,11 @@ class MPG
                 'LangType'        => $params['LangType'] ?? 'zh-tw',
                 'TradeLimit'      => $params['TradeLimit'] ?? 180,
                 'ExpireDate'      => $params['ExpireDate'] ?? null,
-                'ReturnURL'       => $params['ReturnURL'] ?? null,
-                'NotifyURL'       => $params['NotifyURL'] ?? null,
-                'CustomerURL'     => $params['CustomerURL'] ?? null,
+                'ReturnURL'       => $params['ReturnURL'] ?? config('spgateway.mpg.ReturnURL'),
+                'NotifyURL'       => $params['NotifyURL'] ?? config('spgateway.mpg.NotifyURL'),
+                'CustomerURL'     => ($CustomerURL) ? config('spgateway.mpg.CustomerURL') : null,
                 'ClientBackURL'   => $params['ClientBackURL'] ?? null,
-                'EmailModify'     => $params['EmailModify'] ?? 1,
+                'EmailModify'     => $params['EmailModify'] ?? 0,
                 'LoginType'       => $params['LoginType'] ?? 0,
                 'OrderComment'    => $params['OrderComment'] ?? null,
                 'TokenTerm'       => $params['TokenTerm'] ?? null,
@@ -88,7 +94,7 @@ class MPG
                 'VACC'            => $params['VACC'] ?? null,
                 'CVS'             => $params['CVS'] ?? null,
                 'BARCODE'         => $params['BARCODE'] ?? null,
-                'CREDITAE'        => $params['BARCODE'] ?? null,
+                'CVSCOM'          => $params['CVSCOM'] ?? null,
                 'ALIPAY'          => $params['ALIPAY'] ?? null,
                 'TENPAY'          => $params['TENPAY'] ?? null,
 
@@ -310,6 +316,11 @@ class MPG
             }
         }
 
+        if (isset($params['CVSCOM'])) {
+            if (!in_array($params['CVSCOM'], [0, 1, 2, 3])) {
+                return $this->errorMessage('BARCODE', '必須為0或1或2或3');
+            }
+        }
         return true;
     }
 
@@ -481,7 +492,7 @@ class MPG
         return $this->postDataEncrypted;
     }
 
-    public function CheckOutString()
+    public function sendAjax()
     {
         $apiUrl = $this->apiUrl['MPG_API'];
 
