@@ -24,10 +24,14 @@
         "laravel": {
             "providers": [
                 "Oliverkuo\\Spgateway\\SpgatewayServiceProvider"
-            ]
-        },
-        "aliases": {
-            "Spgateway": "Oliverkuo\\Spgateway\\Facades"
+            ],
+            "aliases": {
+                "Encrypt": "Oliverkuo\\Spgateway\\Facades\\Encrypt",
+                "MPG": "Oliverkuo\\Spgateway\\Facades\\MPG",            
+                "Receipt": "Oliverkuo\\Spgateway\\Facades\\Receipt", 
+                "Refund": "Oliverkuo\\Spgateway\\Facades\\Refund",   
+                "Transfer": "Oliverkuo\\Spgateway\\Facades\\Transfer"             
+            }            
         }
     }
 }
