@@ -410,7 +410,8 @@ class MPG
      */
     public function search(
         $orderNo,
-        $amount
+        $amount,
+        $headers=[]
     ) {
         $postData = [
             'MerchantID'      => config('spgateway.mpg.MerchantID'),
@@ -424,9 +425,12 @@ class MPG
         $postData['CheckValue'] = $this->generateTradeInfoCheckValue($orderNo,
             $amount);
 
+        $headers = !empty($headers) ? $headers : ['user-agent' => ''];
+
         $res = $this->helpers->sendPostRequest(
             $this->apiUrl['QUERY_TRADE_INFO_API'],
-            $postData
+            $postData,
+            $headers,
         );
 
         $result = json_decode($res);
