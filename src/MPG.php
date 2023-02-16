@@ -430,7 +430,7 @@ class MPG
         $res = $this->helpers->sendPostRequest(
             $this->apiUrl['QUERY_TRADE_INFO_API'],
             $postData,
-            $headers,
+            $headers
         );
 
         $result = json_decode($res);
